@@ -6,7 +6,7 @@ This is a project for Assignment that involves entry students data and access to
 - Save  
 When the user click the save button ,It takes name and grade from form.
 Check if the name exists in the records (Set Class).
-If it exists in the records, show an error message; otherwise, save it as a Map object.
+If it exists in the records, show an error message; otherwise, save  it to LocalStorage as a Map object.
 
     To avoid errors, I used the Promise and setTimeout pattern for this saving function.
     Then, it calculates the average grades.
