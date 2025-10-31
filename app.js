@@ -12,7 +12,7 @@ async function save() {
     let studentsRecord = savedRecord ? new Set(JSON.parse(savedRecord)) : new Set();
     let studentsRecordMap = savedRecordMap ? new Map(JSON.parse(savedRecordMap)) : new Map();
     let studentSum = 0;
-    const average = document.createElement('h2');
+    const average = document.createElement('h1');
 
 
     const returnMap = await editMap(studentsRecord, studentsRecordMap);
@@ -25,11 +25,11 @@ async function save() {
 
     average.textContent = "Average is " + (studentSum / returnMap.size).toFixed(2);
 
-    document.querySelector('body>h2') ? document.querySelector('body>h2').remove() : null;
+    document.querySelector('body>h1') ? document.querySelector('body>h1').remove() : null;
     document.querySelector('main').before(average);
 
     //console.log(localStorage.getItem("studentsRecord"));
-    
+
 }
 
 async function editMap(studentsRecord, studentsRecordMap) {
@@ -70,15 +70,15 @@ function displayStudents() {
     const tableContainer = document.getElementById('data-displayId');
     readStudentApi().then(result => {
 
-        result.forEach((obj) => {
+        for (const { name, email, website } of result) {
             //create table contents
             const newRow = document.createElement('tr');
             const nameCell = document.createElement('th');
             const detailRow = document.createElement('tr');
             const detailCell = document.createElement('td');
             detailCell.classList.add('hidden');
-            nameCell.textContent = obj.name
-            detailCell.textContent = "Email:" + obj.email + "  website :" + obj.website;
+            nameCell.textContent = name;
+            detailCell.textContent = "Email:" + email + "  website :" + website;
 
             newRow.appendChild(nameCell);
             newRow.addEventListener('click', (e) => {
@@ -88,7 +88,7 @@ function displayStudents() {
             detailRow.appendChild(detailCell);
             tableBody.appendChild(newRow);
             tableBody.appendChild(detailRow);
-        });
+        }
 
         const count = document.createElement('h2');
         count.textContent = "Total Count:" + result.length;
@@ -107,8 +107,8 @@ function toast(message, duration = 3000) {
     t.textContent = message;
     container.appendChild(t);
 
-    setTimeout(() => t.classList.add('show'), 10); 
-    
+    setTimeout(() => t.classList.add('show'), 10);
+
     setTimeout(() => {
         t.classList.remove('show');
         t.addEventListener('transitionend', () => container.removeChild(t), { once: true });
