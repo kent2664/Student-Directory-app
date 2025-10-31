@@ -103,7 +103,7 @@ function displayStudents() {
         count.textContent = "Total Count:" + result.length;
 
         tableContainer.appendChild(count);
-        console.log(result);
+
     });
 }
 
