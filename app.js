@@ -20,15 +20,13 @@ async function save() {
     //calcrate sum
     returnMap.forEach((val, key) => {
         studentSum += new Number(val);
-        //console.log(`keyyyyyy${key}:valueeee${val}  summmmmmm${studentSum}`);
     });
 
     average.textContent = "Average is " + (studentSum / returnMap.size).toFixed(2);
 
+    //remove old average
     document.querySelector('body>h1') ? document.querySelector('body>h1').remove() : null;
     document.querySelector('main').before(average);
-
-    //console.log(localStorage.getItem("studentsRecord"));
 
 }
 
@@ -58,9 +56,20 @@ async function editMap(studentsRecord, studentsRecordMap) {
 async function readStudentApi() {
     const response = await fetch('https://jsonplaceholder.typicode.com/users');
 
-    const data = await response.json();
+    try {
+        if (!response.ok) {
+            toast("Faild to Read Data");
+            throw new Error(`HTTP Error! Status: ${response.status} - ${response.statusText}`);
+        }
 
-    return data;
+        const data = await response.json();
+
+        return data;
+    } catch {
+        console.error('Fetch operation failed:', error.message);
+        throw error; 
+    }
+
 }
 
 
